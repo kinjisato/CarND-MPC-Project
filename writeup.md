@@ -21,6 +21,35 @@ Code must compile without errors with cmake and make.
 
 Almost code are carried from the lecture.
 
+##### MPC.ccp
+''''
+      // The part of the cost based on the reference state.
+      double Kcte = 1;
+      double Kpsi = 1;
+      double Kv = 1;
+      for (int t = 0; t < N; t++) {
+          fg[0] += Kcte * CppAD::pow(vars[cte_start + t], 2);
+          fg[0] += Kpsi * CppAD::pow(vars[epsi_start + t], 2);
+          fg[0] += Kv * CppAD::pow(vars[v_start + t] - ref_v, 2);
+      }
+
+      // Minimize the use of actuators.
+      double Kdelta = 400;
+      double Ka = 5; // 10
+      for (int t = 0; t < N - 1; t++) {
+          fg[0] += Kdelta * CppAD::pow(vars[delta_start + t], 2);
+          fg[0] += Ka * CppAD::pow(vars[a_start + t], 2);
+      }
+      
+      // Minimize the value gap between sequential actuations.
+      double Kddelta = 1000;
+      double Kda = 1;
+      for (int t = 0; t < N - 2; t++) {
+          fg[0] += Kddelta * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+          fg[0] += Kda * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
+      }
+'''
+
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
