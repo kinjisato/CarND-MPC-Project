@@ -1,4 +1,4 @@
-## git push -u origin master
+## CarND-MPC-Project
 ### Kinji Sato  9th September 2018
 
 ---
