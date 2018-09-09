@@ -69,6 +69,30 @@ I choosed the 3rd order polynomial for xy tracing, so f0 and psides0 also have t
 
 For update, I declared as above. I defined as ``` fg[1 + psi_start + t] = psi1 - (psi0 - v0 * delta0 / Lf * dt) ``` to fit positive negative value and the car steer left and right.
 
+```C++
+  // TODO: Return the first actuator values. The variables can be accessed with
+  // `solution.x[i]`.
+  //
+  // {...} is shorthand for creating a vector, so auto x1 = {1.0,2.0}
+  // creates a 2 element double vector.
+    vector<double> result;
+    
+    result.push_back(solution.x[delta_start]);
+    result.push_back(solution.x[a_start]);
+    
+    for (int i = 0; i < N-1; i++) {
+        result.push_back(solution.x[x_start + i + 1]);
+        result.push_back(solution.x[y_start + i + 1]);
+    }
+    
+    return result;
+}
+```
+
+I make vecotr 'result' to store the result of MPU.solver. the steer control value would be stored into result[0], throttle control value would be stored into result[1]. And N sets of car future target positions would be stored into rest of result vector. This vector result is returned to main function.
+
+
+
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
