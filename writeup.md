@@ -5,12 +5,6 @@
 
 [//]: # (Image References)
 [image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/896/view) Points
@@ -19,11 +13,13 @@
 ---
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+#### 1. Compilation
 
-You're reading it!
+Code must compile without errors with cmake and make.
 
-### Histogram of Oriented Gradients (HOG)
+#### 2. Implementation
+
+Almost code are carried from the lecture.
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
