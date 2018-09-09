@@ -22,12 +22,8 @@ Code must compile without errors with cmake and make.
 Almost code are carried from the lecture.
 
 ##### MPC.ccp
-''''
-      // The part of the cost based on the reference state.
-      double Kcte = 1;
-      double Kpsi = 1;
-      double Kv = 1;
-      for (int t = 0; t < N; t++) {
+
+```C++
           fg[0] += Kcte * CppAD::pow(vars[cte_start + t], 2);
           fg[0] += Kpsi * CppAD::pow(vars[epsi_start + t], 2);
           fg[0] += Kv * CppAD::pow(vars[v_start + t] - ref_v, 2);
@@ -47,8 +43,18 @@ Almost code are carried from the lecture.
       for (int t = 0; t < N - 2; t++) {
           fg[0] += Kddelta * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
           fg[0] += Kda * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
-      }
-'''
+```
+
+The cost function is declared. To make easy to adjust weight of penalty, I added gain factor K*** for each cost functions.
+
+```C++
+// 3rd order
+              AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * CppAD::pow(x0, 2) + coeffs[3] * CppAD::pow(x0, 3);
+              AD<double> psides0 = CppAD::atan(coeffs[1] + 2 * coeffs[2] * x0 + 3 * coeffs[3] * CppAD::pow(x0, 2));
+```
+
+I choosed the 3rd order polynomial for xy tracing, so f0 and psides0 also have the 3rd order.
+
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
