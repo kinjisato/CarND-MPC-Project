@@ -55,6 +55,20 @@ The cost function is declared. To make easy to adjust weight of penalty, I added
 
 I choosed the 3rd order polynomial for xy tracing, so f0 and psides0 also have the 3rd order.
 
+```C++
+              fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
+              fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
+              // fg[1 + psi_start + t] = psi1 - (psi0 + v0 * delta0 / Lf * dt);
+              fg[1 + psi_start + t] = psi1 - (psi0 - v0 * delta0 / Lf * dt);
+              fg[1 + v_start + t] = v1 - (v0 + a0 * dt);
+              fg[1 + cte_start + t] =
+              cte1 - ((f0 - y0) + (v0 * CppAD::sin(epsi0) * dt));
+              fg[1 + epsi_start + t] =
+              epsi1 - ((psi0 - psides0) + v0 * delta0 / Lf * dt);
+```
+
+For update, I declared as above. I defined as ``` fg[1 + psi_start + t] = psi1 - (psi0 - v0 * delta0 / Lf * dt) ``` to fit positive negative value and the car steer left and right.
+
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
